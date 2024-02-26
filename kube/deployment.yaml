@@ -31,7 +31,7 @@ spec:
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: project2-recommender-zz264
+  name: project2-recommender-zz264-2
 spec:
   template:
     spec:
@@ -44,7 +44,7 @@ spec:
           name: zz264-volume
         env:
         - name: DATASET_PATH
-          value: "https://homepages.dcc.ufmg.br/~cunha/hosted/cloudcomp-2023s2-datasets/2023_spotify_ds1.csv"
+          value: "https://homepages.dcc.ufmg.br/~cunha/hosted/cloudcomp-2023s2-datasets/2023_spotify_ds2.csv"
       volumes:
       - name: zz264-volume
         persistentVolumeClaim:
