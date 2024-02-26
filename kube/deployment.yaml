@@ -68,6 +68,6 @@ spec:
     spec:
       containers:
       - name: project2-zz264-client
-        image: quay.io/zhixianzhang/client:0.1
+        image: quay.io/zhixianzhang/client:0.2
         ports:
         - containerPort: 5000
