@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-zz264
+spec:
+  selector:
+    matchLabels:
+      namespace: zz264
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: standard
+  volumeName: project2-pv2-zz264

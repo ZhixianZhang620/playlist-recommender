@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: project-2-server-deployment-zz264
+spec:
+  selector:
+    app: server
+  ports:
+    - protocol: TCP
+      port: 52007
+      targetPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: project2-client-zz264
+spec:
+  selector:
+    app: project2-zz264
+  ports:
+  - port: 62007
+    targetPort: 5000

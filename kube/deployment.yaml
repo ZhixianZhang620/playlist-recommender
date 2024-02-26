@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: project-2-server-deployment-zz264
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: server
+  template:
+    metadata:
+      labels:
+        app: server
+    spec:
+      containers:
+      - name: server
+        image: quay.io/zhixianzhang/server:0.2
+        ports:
+        - containerPort: 5000
+        volumeMounts:
+        - mountPath: "/data"
+          name: zz264-volume
+        env:
+        - name: PORT
+          value: "5000"
+      volumes:
+      - name: zz264-volume
+        persistentVolumeClaim:
+          claimName: pvc-zz264
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: project2-recommender-zz264
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: project2-zz264-recommender
+        image: quay.io/zhixianzhang/recommender:0.1
+        volumeMounts:
+        - mountPath: "/data"
+          name: zz264-volume
+        env:
+        - name: DATASET_PATH
+          value: "https://homepages.dcc.ufmg.br/~cunha/hosted/cloudcomp-2023s2-datasets/2023_spotify_ds1.csv"
+      volumes:
+      - name: zz264-volume
+        persistentVolumeClaim:
+          claimName: pvc-zz264
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: project2-client-zz264
+  labels:
+    app: project2-zz264
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: project2-zz264
+  template:
+    metadata:
+      labels:
+        app: project2-zz264
+    spec:
+      containers:
+      - name: project2-zz264-client
+        image: quay.io/zhixianzhang/client:0.1
+        ports:
+        - containerPort: 5000
